@@ -46,6 +46,7 @@ servidor.Eliminar_conexion(cliente1)
 print("Simulando desconexión y reconexión dinámica...")
 time.sleep(10) 
 servidor.Agregar_conexion(cliente1)
+print("Hola de nuevo a todos!")
 
 
 
