@@ -6,14 +6,17 @@ class Nodo:
        self.nombre = nombre
        self.conexiones = []
        self.buffer = []
+       self.limite_buff = 3
 
     def Agregar_conexion(self,nodo):
         self.conexiones.append(nodo)
         
     def enviar_mensaje(self,mensaje):
         print(f"{self.nombre} has enviado un mensaje que dice: {mensaje}")
-        for conexion in self.conexiones:
-            conexion.recibir_mensaje(mensaje)
+        if random.random() < 0.5:  # Probabilidad de perdida de paquetes
+                print(f"¡Mensaje perdido en {self.nombre}!")
+        else:
+                self.enviar_mensaje(mensaje)
 
     def recibir_mensaje(self, mensaje):
         print(f"{self.nombre} recibio un mensaje: {mensaje}")
@@ -27,13 +30,12 @@ class Nodo:
     
     #metodo parte 3
     def procesar_buffer(self):
-        print(f"Procesando mensajes en el buffer de {self.nombre}")
-        for mensaje in self.buffer:
-            if random.random() < 0.5:  # Probabilidad de perdida de paquetes
-                print(f"¡Mensaje perdido en {self.nombre}!")
-            else:
-                self.enviar_mensaje(mensaje)
-        self.buffer = []
+        while self.buffer: 
+            mensaje = self.buffer.pop(0) 
+            print(f"{self.nombre} ha procesado el mensaje del buffer: {mensaje}")
+
+        
+        
 
 #crear nodos
 servidor = Nodo("Servidor")
